@@ -7,7 +7,7 @@ It's a Streamlit project in a studing purpose.
 на степике.
 
 ## Service:
-Streamlit service is available at [final bank-clients-transgazapp.streamlit.app](https://final-bank-clients-cqxwxkobjplf9vyh.streamlit.app) via Streamlit Cloud
+Streamlit service is available at [final bank-clients](https://final-bank-clients-cqxwxkobjplf9vyh.streamlit.app) via Streamlit Cloud
 
 To run locally, clone the repo and do the following:
 ```
