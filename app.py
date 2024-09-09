@@ -4,8 +4,9 @@ import pandas as pd
 
 from PIL import Image
 
-from frontend.eda import read_data, get_rows_number, get_positive_response, find_max_value, find_min_value, find_mean_value
-from frontend.eda import train_data, show_metrics
+from frontend.eda import read_data, get_rows_number, get_positive_response, find_max_value, find_min_value, \
+    find_mean_value
+from frontend.eda import train_data, show_metrics, read_json
 from svm_EDA import get_svm_model_prediction
 
 
@@ -23,24 +24,19 @@ def preload_content():
     return bank_img, age_img, targhet_img, income_img, correlation_img, targhet_socstatus_img, loanss_img, gender_img
 
 
-def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, targhet_socstatus_img, loanss_img, gender_img):
+def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, targhet_socstatus_img, loanss_img,
+                gender_img):
     st.title('Удовлетворённость обслуживанием БАНКА')
     st.subheader('Делаем деньги, предсказываем удовлетворённость, оцениваем важность факторов')
     st.write('Материал - отклики клиентов')
     st.image(bank_img)
 
-    tab1, tab2, tab3, tab4 = st.tabs([':mag: Исследовать', 'Предсказать LR', 'Предсказать LR modified', 'Предсказать SVM'])
+    tab1, tab2, tab3, tab4 = st.tabs(
+        [':mag: Исследовать', 'Предсказать LR', 'Предсказать LR modified', 'Предсказать SVM'])
 
     with tab1:
         st.write('EDA: исследуем наши данные, предварительно очищенные и обработанные :sparkles:')
 
-        #data = read_json()
-        #time.sleep(20)
-
-        #if data is None:
-            #df = read_data()
-        #else:
-            #df = data
         df = read_data()
         df = df.drop_duplicates()
 
@@ -64,9 +60,9 @@ def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, tar
         income_column = 'PERSONAL_INCOME'
         st.image(income_img)
 
-        st.write('Доходы  респондентов варьирует  от ' + find_min_value(df, income_column)+ ' руб')
+        st.write('Доходы  респондентов варьирует  от ' + find_min_value(df, income_column) + ' руб')
         st.write('до ' + find_max_value(df, income_column) + ' руб.')
-        st.write('Средний доход респондентов: ' + find_mean_value(df, income_column)+ ' руб.')
+        st.write('Средний доход респондентов: ' + find_mean_value(df, income_column) + ' руб.')
 
         st.divider()
 
@@ -128,6 +124,7 @@ def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, tar
 
     with tab4:
         st.header(" SVM")
+        #read_json()
 
         st.divider()
         st.write("Давайте посмотрим, с какой вероятностью разные клиенты ответили бы на нашу рассылку!")
@@ -139,8 +136,11 @@ def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, tar
         # depriciated version
         probab_svm = result[option3]
 
-        st.write(f"Клиент {option3} откликнется на маркетинговое предложение с вероятностью {round(probab_svm, 2) * 100}%")
+        st.write(
+            f"Клиент {option3} откликнется на маркетинговое предложение с вероятностью {round(probab_svm, 2) * 100}%")
         st.divider()
+
+
 def load_page():
     """ loads main page """
 
@@ -150,7 +150,8 @@ def load_page():
                        page_title="Банки и опросы",
                        page_icon=':bank:')
 
-    render_page(bank_img, age_img, targhet_img, income_img, correlation_img, targhet_socstatus_img, loanss_img, gender_img)
+    render_page(bank_img, age_img, targhet_img, income_img, correlation_img, targhet_socstatus_img, loanss_img,
+                gender_img)
 
 
 if __name__ == "__main__":
