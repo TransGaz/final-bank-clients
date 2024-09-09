@@ -123,7 +123,7 @@ def render_page(bank_img, age_img, targhet_img, income_img, correlation_img, tar
         st.write(f"Клиент откликнется на маркетинговое предложение с вероятностью {round(prob, 2) * 100}%")
 
     with tab4:
-        st.header(" SVM")
+        st.header("  Метод опорных векторов - SVM")
         #read_json()
 
         st.divider()
